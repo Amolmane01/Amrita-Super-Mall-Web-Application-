@@ -1,0 +1,118 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Category & Floor</title>
+    <link rel="stylesheet" href="styles/admin-manage-category & floor.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <header>
+        <h1>Manage Category & Floor</h1>
+    </header>
+
+    <main>
+        <!-- Add Category & Floor Form -->
+        <section id="add-category-floor">
+            <h2>Add New Category & Floor</h2>
+            <form id="category-floor-form">
+                <div class="form-group">
+                    <label for="category-name">Category Name:</label>
+                    <input type="text" id="category-name" placeholder="Enter category name" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="floor-number">Floor Number:</label>
+                    <input type="number" id="floor-number" placeholder="Enter floor number" min="1" required>
+                </div>
+
+                <button type="submit">Add</button>
+            </form>
+        </section>
+
+        <!-- Category & Floor List -->
+        <section id="category-floor-list">
+            <h2>Category & Floor List</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Category Name</th>
+                        <th>Floor Number</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="category-floor-table-body">
+                    <!-- Dynamic rows will be added here -->
+                </tbody>
+            </table>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 AMRITA Mall. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // References
+        const categoryFloorForm = document.getElementById('category-floor-form');
+        const categoryFloorTableBody = document.getElementById('category-floor-table-body');
+
+        // Load categories and floors from localStorage
+        function loadCategoryFloorData() {
+            const data = JSON.parse(localStorage.getItem('categoriesFloors')) || [];
+            categoryFloorTableBody.innerHTML = ''; // Clear table
+
+            data.forEach((item, index) => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${item.categoryName}</td>
+                    <td>${item.floorNumber}</td>
+                    <td>
+                        <button class="delete-btn" data-index="${index}">Delete</button>
+                    </td>
+                `;
+                categoryFloorTableBody.appendChild(row);
+            });
+
+            attachDeleteListeners();
+        }
+
+        // Add new category and floor
+        categoryFloorForm.addEventListener('submit', function (event) {
+            event.preventDefault();
+
+            const categoryName = document.getElementById('category-name').value;
+            const floorNumber = document.getElementById('floor-number').value;
+
+            const data = JSON.parse(localStorage.getItem('categoriesFloors')) || [];
+            data.push({ categoryName, floorNumber });
+            localStorage.setItem('categoriesFloors', JSON.stringify(data));
+
+            loadCategoryFloorData();
+            categoryFloorForm.reset(); // Clear form inputs
+        });
+
+        // Delete a category and floor
+        function attachDeleteListeners() {
+            const deleteButtons = document.querySelectorAll('.delete-btn');
+            deleteButtons.forEach(button => {
+                button.addEventListener('click', function () {
+                    const index = this.dataset.index;
+                    const data = JSON.parse(localStorage.getItem('categoriesFloors')) || [];
+                    data.splice(index, 1);
+                    localStorage.setItem('categoriesFloors', JSON.stringify(data));
+                    loadCategoryFloorData();
+                });
+            });
+        }
+
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', loadCategoryFloorData);
+    </script>
+</body>
+
+</html>

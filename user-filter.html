@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Filter Shops</title>
+    <link rel="stylesheet" href="styles/user-filter.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <header>
+        <h1>Filter Shops</h1>
+    </header>
+
+    <main>
+        <!-- Filter Form -->
+        <section id="filter-form">
+            <h2>Filter Options</h2>
+            <form id="shop-filter-form">
+                <div class="form-group">
+                    <label for="filter-category">Category:</label>
+                    <select id="filter-category">
+                        <option value="">All Categories</option>
+                        <option value="Electronics">Electronics</option>
+                        <option value="Fashion">Fashion</option>
+                        <option value="Books">Books</option>
+                        <option value="Home">Home</option>
+                        <option value="Toys">Toys</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="filter-location">Location:</label>
+                    <input type="text" id="filter-location" placeholder="Enter location">
+                </div>
+
+                <button type="submit">Apply Filters</button>
+            </form>
+        </section>
+
+        <!-- Filtered Shop List -->
+        <section id="filtered-shop-list">
+            <h2>Filtered Shops</h2>
+            <div id="shop-container">
+                <!-- Filtered shop details will appear here -->
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 AMRITA Mall. All rights reserved.</p>
+    </footer>
+
+    <script src="scripts/user-filter.js"></script>
+</body>
+
+</html>

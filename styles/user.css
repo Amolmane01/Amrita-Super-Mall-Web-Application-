@@ -1,0 +1,101 @@
+@import url('./styles.css');
+
+/* User-specific styles */
+.user-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 15px;
+  justify-content: space-between;
+}
+
+button {
+  padding: 15px 20px;
+  background-color: #FF9800;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+button:hover {
+  background-color: #E65100;
+}
+
+a{
+  text-decoration: none;
+}
+
+
+@media (max-width: 768px) {
+  /* Adjust User Actions layout */
+  .user-actions {
+    flex-direction: column; /* Stack buttons vertically */
+    align-items: center; /* Center the buttons */
+    gap: 20px; /* Adjust space between buttons */
+    padding: 10px; /* Add some padding */
+  }
+
+  /* Button adjustments for tablet size */
+  button {
+    font-size: 14px; /* Reduce font size for smaller screens */
+    padding: 12px 18px; /* Adjust padding */
+    width: 100%; /* Make buttons take up full width */
+    max-width: 300px; /* Optional: limit button width */
+    margin: 8px 0;
+  }
+
+  /* Adjust link text size for better readability */
+  a {
+    font-size: 14px; /* Increase link size for better tap targets */
+  }
+
+  /* Adjust the body font size */
+  body {
+    font-size: 14px; /* Make text a bit larger for tablets */
+  }
+
+  /* Resize the header text */
+  header h1 {
+    font-size: 2rem; /* Reduce header size to fit smaller screens */
+  }
+
+  /* Adjust form layout */
+  form {
+    gap: 12px; /* Increase space between form elements */
+  }
+
+  /* Make sure the form inputs are appropriately sized */
+  form input {
+    height: 45px; /* Adjust height for inputs */
+    padding: 0.8em; /* Add padding to inputs */
+  }
+
+  /* Reduce the size of the footer text */
+  footer {
+    font-size: 14px; /* Adjust footer text size */
+  }
+}
+
+
+@media (max-width: 480px) {
+  .user-actions {
+    flex-direction: column; /* Stack buttons vertically */
+    align-items: center; /* Center-align buttons */
+    gap: 20px;
+  }
+
+  button {
+    font-size: 13px; /* Further reduce font size for mobile */
+    padding: 10px 15px; /* Compact button padding */
+    width: 100%; /* Make buttons full width */
+    max-width: 300px; /* Optional: Set a max width for consistency */
+    margin: 8px 0;
+  }
+
+  a {
+    font-size: 14px; /* Adjust link font size for mobile */
+  }
+}
+

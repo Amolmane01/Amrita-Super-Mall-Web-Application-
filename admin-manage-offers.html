@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Offer Details</title>
+    <link rel="stylesheet" href="styles/admin-manage-offers.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <header>
+        <h1>Manage Offer Details</h1>
+    </header>
+
+    <main>
+        <!-- Add Offer Form -->
+        <section id="add-offer">
+            <h2>Add New Offer</h2>
+            <form id="offer-form">
+                <div class="form-group">
+                    <label for="offer-title">Offer Title:</label>
+                    <input type="text" id="offer-title" placeholder="Enter offer title" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="offer-description">Offer Description:</label>
+                    <textarea id="offer-description" placeholder="Enter offer description" rows="4" required></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="offer-validity">Offer Validity:</label>
+                    <input type="date" id="offer-validity" required>
+                </div>
+
+                <button type="submit">Add Offer</button>
+            </form>
+        </section>
+
+        <!-- Offer List -->
+        <section id="offer-list">
+            <h2>Offer List</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Description</th>
+                        <th>Validity</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="offer-table-body">
+                    <!-- Offers will be dynamically added here -->
+                </tbody>
+            </table>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 AMRITA Mall. All rights reserved.</p>
+    </footer>
+
+    <script src="scripts/admin-manage-offers.js"></script>
+</body>
+
+</html>
+

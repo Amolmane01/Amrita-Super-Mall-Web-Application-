@@ -1,0 +1,89 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Floor Wise Details</title>
+    <link rel="stylesheet" href="styles/user-floor-wise.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <header>
+        <h1>Floor Wise Details</h1>
+    </header>
+
+    <main>
+        <!-- Select Floor Dropdown -->
+        <section id="select-floor">
+            <h2>Select Floor</h2>
+            <select id="floor-select">
+                <option value="">Choose a Floor</option>
+                <!-- Floor options will be dynamically added -->
+            </select>
+        </section>
+
+        <!-- Shop List -->
+        <section id="floor-shop-list">
+            <h2>Shops on Selected Floor</h2>
+            <div id="shop-container">
+                <!-- Shops will be dynamically displayed here -->
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 AMRITA Mall. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // References
+        const floorSelect = document.getElementById('floor-select');
+        const shopContainer = document.getElementById('shop-container');
+
+        // Load floors into the dropdown
+        function loadFloors() {
+            const data = JSON.parse(localStorage.getItem('categoriesFloors')) || [];
+
+            // Get unique floor numbers
+            const uniqueFloors = [...new Set(data.map(item => item.floorNumber))];
+
+            floorSelect.innerHTML = '<option value="">Choose a Floor</option>';
+            uniqueFloors.forEach(floor => {
+                const option = document.createElement('option');
+                option.value = floor;
+                option.textContent = `Floor ${floor}`;
+                floorSelect.appendChild(option);
+            });
+        }
+
+        // Display categories for the selected floor
+        floorSelect.addEventListener('change', function () {
+            const selectedFloor = this.value;
+            const data = JSON.parse(localStorage.getItem('categoriesFloors')) || [];
+            const filteredData = data.filter(item => item.floorNumber == selectedFloor);
+
+            shopContainer.innerHTML = ''; // Clear previous content
+            if (filteredData.length > 0) {
+                filteredData.forEach(item => {
+                    const shopDiv = document.createElement('div');
+                    shopDiv.className = 'shop';
+                    shopDiv.innerHTML = `
+                        <h3>${item.categoryName}</h3>
+                        <p>Floor: ${item.floorNumber}</p>
+                    `;
+                    shopContainer.appendChild(shopDiv);
+                });
+            } else {
+                shopContainer.innerHTML = '<p>No categories found on this floor.</p>';
+            }
+        });
+
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', loadFloors);
+    </script>
+</body>
+
+</html>

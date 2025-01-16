@@ -1,0 +1,86 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>List of Shop Details</title>
+    <link rel="stylesheet" href="styles/user-list-of-shop.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <header>
+        <h1>List of Shop Details</h1>
+    </header>
+
+    <main>
+        <!-- Search Bar -->
+        <section id="search-bar">
+            <input type="text" id="search-input" placeholder="Search shops by name or category">
+            <button id="search-button">Search</button>
+        </section>
+
+        <!-- Shop List -->
+        <section id="shop-list">
+            <h2>Shops</h2>
+            <div id="shop-container">
+                <!-- Shop details will be dynamically loaded here -->
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 AMRITA Mall. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Reference to shop container and search input
+        const shopContainer = document.getElementById('shop-container');
+        const searchInput = document.getElementById('search-input');
+        const searchButton = document.getElementById('search-button');
+
+        // Function to load shops from localStorage
+        function loadShops(filter = '') {
+            const shops = JSON.parse(localStorage.getItem('shops')) || [];
+            shopContainer.innerHTML = '';
+
+            const filteredShops = shops.filter(
+                (shop) =>
+                    shop.name.toLowerCase().includes(filter.toLowerCase()) ||
+                    shop.category.toLowerCase().includes(filter.toLowerCase())
+            );
+
+            if (filteredShops.length === 0) {
+                shopContainer.innerHTML = '<p>No shops found.</p>';
+                return;
+            }
+
+            filteredShops.forEach((shop) => {
+                const shopElement = document.createElement('div');
+                shopElement.classList.add('shop-item');
+
+                shopElement.innerHTML = `
+                    <h3>${shop.name}</h3>
+                    <p><strong>Location:</strong> ${shop.location}</p>
+                    <p><strong>Category:</strong> ${shop.category}</p>
+                    <p><strong>Description:</strong> ${shop.description || 'No description provided'}</p>
+                `;
+
+                shopContainer.appendChild(shopElement);
+            });
+        }
+
+        // Event listener for search
+        searchButton.addEventListener('click', function () {
+            const searchTerm = searchInput.value;
+            loadShops(searchTerm);
+        });
+
+        // Load shops on page load
+        document.addEventListener('DOMContentLoaded', loadShops);
+    </script>
+</body>
+
+</html>

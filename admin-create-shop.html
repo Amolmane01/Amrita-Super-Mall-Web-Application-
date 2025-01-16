@@ -1,0 +1,100 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Shop Details</title>
+    <link rel="stylesheet" href="styles/admin-create-shop.css">
+</head>
+
+<body>
+    <header>
+        <h1>Create Shop Details</h1>
+    </header>
+
+    <main>
+        <form id="shop-form">
+            <div class="form-group">
+                <label for="shop-name">Shop Name:</label>
+                <input type="text" id="shop-name" placeholder="Enter shop name" required>
+            </div>
+
+            <div class="form-group">
+                <label for="shop-location">Shop Location:</label>
+                <input type="text" id="shop-location" placeholder="Enter shop location" required>
+            </div>
+
+            <div class="form-group">
+                <label for="shop-category">Shop Category:</label>
+                <select id="shop-category" required>
+                    <option value="">Select Category</option>
+                    <option value="electronics">Electronics</option>
+                    <option value="fashion">Fashion</option>
+                    <option value="home">Home</option>
+                    <option value="books">Books</option>
+                    <option value="toys">Toys</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="shop-description">Shop Description:</label>
+                <textarea id="shop-description" placeholder="Enter shop description" rows="4"></textarea>
+            </div>
+
+            <button type="submit">Create Shop</button>
+        </form>
+
+        <div id="message"></div>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 AMRITA Mall. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Reference to form and message container
+        const shopForm = document.getElementById('shop-form');
+        const message = document.getElementById('message');
+
+        // Event listener for form submission
+        shopForm.addEventListener('submit', function (event) {
+            event.preventDefault();
+
+            // Get form data
+            const shopName = document.getElementById('shop-name').value;
+            const shopLocation = document.getElementById('shop-location').value;
+            const shopCategory = document.getElementById('shop-category').value;
+            const shopDescription = document.getElementById('shop-description').value;
+
+            // Validate form
+            if (!shopName || !shopLocation || !shopCategory) {
+                message.textContent = "Please fill out all required fields.";
+                message.style.color = "red";
+                return;
+            }
+
+            // Create shop object
+            const shopDetails = {
+                name: shopName,
+                location: shopLocation,
+                category: shopCategory,
+                description: shopDescription,
+            };
+
+            // Store in localStorage (simulate a backend or database)
+            let shops = JSON.parse(localStorage.getItem('shops')) || [];
+            shops.push(shopDetails);
+            localStorage.setItem('shops', JSON.stringify(shops));
+
+            // Provide feedback to the user
+            message.textContent = "Shop created successfully!";
+            message.style.color = "green";
+
+            // Clear form
+            shopForm.reset();
+        });
+    </script>
+</body>
+</html>

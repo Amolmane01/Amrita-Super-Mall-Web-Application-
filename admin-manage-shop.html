@@ -1,0 +1,190 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Shop Details</title>
+    <link rel="stylesheet" href="styles/admin-manage-shop.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <header>
+        <h1>Manage Shop Details</h1>
+    </header>
+
+    <main>
+        <section id="shop-list">
+            <h2>Shop List</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Shop Name</th>
+                        <th>Location</th>
+                        <th>Category</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="shop-table-body">
+                    <!-- Dynamic shop details will be loaded here -->
+                </tbody>
+            </table>
+        </section>
+
+        <section id="edit-shop" style="display: none;">
+            <h2>Edit Shop Details</h2>
+            <form id="edit-shop-form">
+                <div class="form-group">
+                    <label for="edit-shop-name">Shop Name:</label>
+                    <input type="text" id="edit-shop-name" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="edit-shop-location">Shop Location:</label>
+                    <input type="text" id="edit-shop-location" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="edit-shop-category">Shop Category:</label>
+                    <select id="edit-shop-category" required>
+                        <option value="electronics">Electronics</option>
+                        <option value="fashion">Fashion</option>
+                        <option value="home">Home</option>
+                        <option value="books">Books</option>
+                        <option value="toys">Toys</option>
+                    </select>
+                </div>
+
+                <button type="submit">Update Shop</button>
+                <button type="button"  id="cancel-edit">Cancel</button>
+            </form>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 AMRITA Mall. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // References
+        const shopTableBody = document.getElementById('shop-table-body');
+        const editSection = document.getElementById('edit-shop');
+        const editForm = document.getElementById('edit-shop-form');
+        const cancelEditButton = document.getElementById('cancel-edit');
+
+        // Inputs in the edit form
+        const editShopName = document.getElementById('edit-shop-name');
+        const editShopLocation = document.getElementById('edit-shop-location');
+        const editShopCategory = document.getElementById('edit-shop-category');
+
+        // Variable to track the shop being edited
+        let editingIndex = null;
+
+        // Load shop details from localStorage
+        function loadShops() {
+            const shops = JSON.parse(localStorage.getItem('shops')) || [];
+            shopTableBody.innerHTML = ''; // Clear table
+
+            shops.forEach((shop, index) => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${shop.name}</td>
+                    <td>${shop.location}</td>
+                    <td>${shop.category}</td>
+                    <td>
+                        <button class="edit-btn" data-index="${index}">Edit</button>
+                        <button class="delete-btn" data-index="${index}">Delete</button>
+                    </td>
+                `;
+
+                shopTableBody.appendChild(row);
+            });
+
+            attachEventListeners();
+        }
+
+        // Attach event listeners to Edit and Delete buttons
+        function attachEventListeners() {
+            const editButtons = document.querySelectorAll('.edit-btn');
+            const deleteButtons = document.querySelectorAll('.delete-btn');
+
+            editButtons.forEach((button) => {
+                button.addEventListener('click', function () {
+                    const index = this.dataset.index;
+                    startEdit(index);
+                });
+            });
+
+            deleteButtons.forEach((button) => {
+                button.addEventListener('click', function () {
+                    const index = this.dataset.index;
+                    deleteShop(index);
+                });
+            });
+        }
+
+        // Start editing a shop
+        function startEdit(index) {
+            const shops = JSON.parse(localStorage.getItem('shops')) || [];
+            const shop = shops[index];
+
+            editingIndex = index; // Track which shop is being edited
+
+            // Populate the form with existing data
+            editShopName.value = shop.name;
+            editShopLocation.value = shop.location;
+            editShopCategory.value = shop.category;
+
+            // Show the edit form
+            editSection.style.display = 'block';
+        }
+
+        // Save the updated shop details
+        editForm.addEventListener('submit', function (event) {
+            event.preventDefault();
+
+            const shops = JSON.parse(localStorage.getItem('shops')) || [];
+
+            // Update the shop details
+            shops[editingIndex] = {
+                name: editShopName.value,
+                location: editShopLocation.value,
+                category: editShopCategory.value,
+            };
+
+            // Save back to localStorage
+            localStorage.setItem('shops', JSON.stringify(shops));
+
+            // Hide the edit form and reload the table
+            editSection.style.display = 'none';
+            loadShops();
+        });
+
+        // Cancel editing
+        cancelEditButton.addEventListener('click', function () {
+            editSection.style.display = 'none';
+            editingIndex = null;
+        });
+
+        // Delete a shop
+        function deleteShop(index) {
+            const shops = JSON.parse(localStorage.getItem('shops')) || [];
+
+            // Remove the shop
+            shops.splice(index, 1);
+
+            // Save back to localStorage
+            localStorage.setItem('shops', JSON.stringify(shops));
+
+            // Reload the table
+            loadShops();
+        }
+
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', loadShops);
+    </script>
+</body>
+
+</html>

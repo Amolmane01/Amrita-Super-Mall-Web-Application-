@@ -1,0 +1,113 @@
+/* General Styles */
+body {
+  font-family: 'Arial', sans-serif;
+  margin: 0;
+  padding: 0;
+  background: linear-gradient(to bottom right, #f5f5f5, #e0e0e0);
+}
+
+header {
+  background-color: #4CAF50;
+  color: white;
+  text-align: center;
+  padding: 20px 0;
+  width: 100vw;
+}
+
+header .logo {
+  height: 50px;
+}
+
+h1, h2 {
+  margin: 10px 0;
+}
+
+main {
+  padding: 20px;
+  text-align: center;
+}
+
+footer {
+  background-color: #333;
+  color: white;
+  text-align: center;
+  padding: 10px 0;
+  width: 100vw;
+}
+
+.role-selection {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.role-card {
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 20px;
+  text-align: center;
+  text-decoration: none;
+  color: black;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  width: 200px;
+  transition: transform 0.2s;
+}
+
+.role-card:hover {
+  transform: scale(1.05);
+  border-color: #4CAF50;
+}
+
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  header {
+    padding: 15px 0;
+  }
+
+  header .logo {
+    height: 40px;
+  }
+
+  main {
+    padding: 15px;
+  }
+
+  .role-card {
+    width: 150px; /* Adjust card size for smaller screens */
+    padding: 15px;
+  }
+
+  h1, h2 {
+    font-size: 1.5em; /* Reduce font size */
+  }
+}
+
+@media (max-width: 480px) {
+  header {
+    padding: 10px 0;
+  }
+
+  header .logo {
+    height: 30px;
+  }
+
+  main {
+    padding: 10px;
+  }
+
+  .role-card {
+    width: 120px; /* Further adjust card size */
+    padding: 10px;
+    font-size: 0.9em; /* Reduce font size inside cards */
+  }
+
+  h1, h2 {
+    font-size: 1.2em; /* Further reduce font size */
+  }
+
+  footer {
+    font-size: 0.9em; /* Adjust footer font size */
+  }
+}
